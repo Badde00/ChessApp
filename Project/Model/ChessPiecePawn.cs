@@ -31,28 +31,26 @@ namespace ChessApp.Model
             }
 
             // Can capture a piece if it is one square diagonally forward
-            if (targetPiece != null && this.IsOneForward(y) && Math.Abs(this.Pos[1] - y) == 1) {
+            if (targetPiece != null && this.IsOneForward(y) && Math.Abs(this.Pos[0] - x) == 1) {
                 return true;
             }
 
             // Can move one square forward if it doesn't capture
-            System.Console.WriteLine(targetPiece == null);
-            System.Console.WriteLine(this.IsOneForward(y));
-            System.Console.WriteLine(Math.Abs(this.Pos[1] - y) == 1);
-            if (targetPiece == null && this.IsOneForward(y) && Math.Abs(this.Pos[1] - y) == 1) {
+            if (targetPiece == null && this.IsOneForward(y) && Math.Abs(this.Pos[0] - x) == 0) {
                 return true;
             }
 
             // Can move two squares forward if it doesn't capture anything, is the first move and there is no piece in between the positions
             if (this.IsForward(y)
-                && Math.Abs(this.Pos[0] - x) == 2
+                && Math.Abs(this.Pos[1] - y) == 2
+                && Math.Abs(this.Pos[0] - x) == 0
                 && targetPiece == null
                 && this.Pos.Equals(this.PrevPos)) {
                     // Calculate middle position
-                    int midX = this.IsWhite ? this.Pos[0] + 1 : this.Pos[0] - 1;
+                    int midY = this.IsWhite ? this.Pos[1] + 1 : this.Pos[1] - 1;
 
                     // Check if there is a piece in the middle position
-                    if (board[midX, this.Pos[1]] == null) {
+                    if (board[this.Pos[0], midY] == null) {
                         return true;
                     }
                     return false;
@@ -61,7 +59,7 @@ namespace ChessApp.Model
             // En passant: Can capture a piece behind the landing spot if it is a pawn that just moved two squares forward and this pawn moved diagonally to get there
             if (targetPiece == null
                 && this.IsOneForward(y)
-                && Math.Abs(this.Pos[1] - y) == 1) {
+                && Math.Abs(this.Pos[0] - x) == 1) {
                 int targetY = this.Pos[1] > y ? this.Pos[1] - 1 : this.Pos[1] + 1;
                 targetPiece = board[this.Pos[0], targetY];
 
@@ -77,9 +75,14 @@ namespace ChessApp.Model
             return false;
         }
 
+        public void Move(int[] position) {
+            this.PrevPos = Pos;
+            this.Pos = position;
+        }
 
-        private Boolean IsForward(int targetX) {
-            return this.IsWhite ? targetX > this.Pos[0] : targetX < this.Pos[0];
+
+        private Boolean IsForward(int targetY) {
+            return this.IsWhite ? targetY > this.Pos[1] : targetY < this.Pos[1];
         }
 
         private Boolean IsOneForward(int targetY) {

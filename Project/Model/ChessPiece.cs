@@ -11,5 +11,7 @@ namespace ChessApp.Model
         int[] Pos { get; set; }
         int[] PrevPos { get; set; }
         Boolean IsValidMove(int x, int y, ChessPiece[,] board);
+
+        void Move(int[] location);
     }
 }
