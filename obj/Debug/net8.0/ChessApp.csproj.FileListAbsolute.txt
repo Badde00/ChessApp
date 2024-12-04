@@ -7,6 +7,7 @@ C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.GeneratedM
 C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.AssemblyInfoInputs.cache
 C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.AssemblyInfo.cs
 C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.csproj.CoreCompileInputs.cache
+C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.sourcelink.json
 C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.dll
 C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\refint\ChessApp.dll
 C:\Users\IFlyts\Desktop\code stuff\ChessApp\obj\Debug\net8.0\ChessApp.pdb

@@ -55,14 +55,23 @@ namespace ChessApp.Model
                     return false;
             }
 
-            
-
             // En passant: Can capture a piece behind the landing spot if it is a pawn that just moved two squares forward and this pawn moved diagonally to get there
-            //TODO
+            if (targetPiece == null
+                && this.IsOneForward(x)
+                && Math.Abs(this.Pos[1] - y) == 1) {
+                int targetY = this.Pos[1] > y ? this.Pos[1] - 1 : this.Pos[1] + 1;
+                targetPiece = board[this.Pos[0], targetY];
 
+                if (targetPiece != null
+                    && targetPiece is ChessPiecePawn
+                    && targetPiece.PrevPos[0] == (this.IsWhite ? 6 : 1) // Target pawn started at its original row
+                    && targetPiece.IsWhite != this.IsWhite // Previous color check didn't check for pieces in places it doesn't land
+                    ) {
+                        return true;
+                    }
+            }
 
-
-            return true;
+            return false;
         }
 
 
