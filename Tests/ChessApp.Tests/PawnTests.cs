@@ -1,9 +1,24 @@
-using ChessApp.Model;
+using Project.Model;
 
 namespace ChessApp.Tests
 {
     public class PawnTests
     {
+        [Fact]
+        public void PawnCannotMoveToSameSpace()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn = new ChessPiecePawn(true, [0, 1]);
+            board.AddPieceToBoard(pawn);
+        
+            // When
+            Boolean validMove = pawn.IsValidMove(0, 1, board.Board);
+        
+            // Then
+            Assert.False(validMove);
+        }
+
         [Fact]
         public void WhitePawnCanMoveOneForward()
         {
@@ -323,5 +338,127 @@ namespace ChessApp.Tests
             // Then
             Assert.False(validMove);
         }
+
+        
+
+        [Fact]
+        public void WhitePawnCanEnPassantBlackPawnThatMovedTwoPreviously()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(true, [1, 4]);
+            ChessPiece pawn2 = new ChessPiecePawn(false, [2, 6]);
+            pawn2.Move([2, 4]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(2, 5, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        
+
+        [Fact]
+        public void WhitePawnCanEnPassantBlackPawnThatMovedTwoPreviously_Inverse()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(true, [1, 4]);
+            ChessPiece pawn2 = new ChessPiecePawn(false, [0, 6]);
+            pawn2.Move([0, 4]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(0, 5, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        
+
+        [Fact]
+        public void BlackPawnCanEnPassantWhitePawnThatMovedTwoPreviously()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(false, [1, 3]);
+            ChessPiece pawn2 = new ChessPiecePawn(true, [2, 1]);
+            pawn2.Move([2, 3]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(2, 2, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        
+
+        [Fact]
+        public void BlackPawnCanEnPassantWhitePawnThatMovedTwoPreviously_Inverse()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(false, [1, 3]);
+            ChessPiece pawn2 = new ChessPiecePawn(true, [0, 1]);
+            pawn2.Move([0, 3]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(0, 2, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        
+
+        [Fact]
+        public void WhitePawnCannotEnPassantInTheWrongDirection()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(true, [1, 4]);
+            ChessPiece pawn2 = new ChessPiecePawn(false, [2, 6]);
+            pawn2.Move([2, 4]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(0, 5, board.Board);
+        
+            // Then
+            Assert.False(validMove);
+        }
+
+        
+
+        [Fact]
+        public void BlackPawnCannotEnPassantInTheWrongDirection()
+        {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(false, [1, 3]);
+            ChessPiece pawn2 = new ChessPiecePawn(true, [2, 1]);
+            pawn2.Move([2, 3]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(0, 2, board.Board);
+        
+            // Then
+            Assert.False(validMove);
+        }
+
+        //TODO: Make En Passant test with non-pawn piece
     }
 }

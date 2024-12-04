@@ -3,26 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChessApp.Model
+namespace Project.Model
 {
-    public class ChessPiecePawn : ChessPiece
+    public class ChessPiecePawn(bool isWhite, int[] pos) : ChessPiece(isWhite, pos)
     {
-        public Boolean IsWhite { get; }
-        public int[] Pos { get; set; }
-        public int[] PrevPos { get; set; }
-
-
-        public ChessPiecePawn(Boolean isWhite, int[] pos)
-        {
-            this.IsWhite = isWhite;
-            if (pos.Length != 2) {
-                throw new ArgumentException("Invalid position");
-            }
-            this.Pos = pos;
-            this.PrevPos = pos;
-        }
-
-        public Boolean IsValidMove(int x, int y, ChessPiece[,] board)
+        public override bool IsValidMove(int x, int y, ChessPiece[,] board)
         {
             ChessPiece targetPiece = board[x, y];
             // Cannot land on a square with a piece of your color
@@ -60,12 +45,11 @@ namespace ChessApp.Model
             if (targetPiece == null
                 && this.IsOneForward(y)
                 && Math.Abs(this.Pos[0] - x) == 1) {
-                int targetY = this.Pos[1] > y ? this.Pos[1] - 1 : this.Pos[1] + 1;
-                targetPiece = board[this.Pos[0], targetY];
+                targetPiece = board[x, this.Pos[1]]; // If the target piece is to the pawns side, then the y value of the target is the same as this pawn, and the x value is the same as where you're trying to move
 
                 if (targetPiece != null
                     && targetPiece is ChessPiecePawn
-                    && targetPiece.PrevPos[0] == (this.IsWhite ? 6 : 1) // Target pawn started at its original row
+                    && targetPiece.PrevPos[1] == (this.IsWhite ? 6 : 1) // Target pawn started at its original row
                     && targetPiece.IsWhite != this.IsWhite // Previous color check didn't check for pieces in places it doesn't land
                     ) {
                         return true;
@@ -73,11 +57,6 @@ namespace ChessApp.Model
             }
 
             return false;
-        }
-
-        public void Move(int[] position) {
-            this.PrevPos = Pos;
-            this.Pos = position;
         }
 
 

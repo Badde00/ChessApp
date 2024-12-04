@@ -1,7 +1,7 @@
 ﻿using System;
-using ChessApp.Model;
+using Project.Model;
 
-namespace ChessApp
+namespace Project
 {
   class Program
   {
@@ -10,10 +10,10 @@ namespace ChessApp
       Console.WriteLine("Welcome to ChessApp!");
 
       ChessBoard board = new();
-      ChessPiece pawn = new ChessPiecePawn(false, [0, 6]);
-      board.AddPieceToBoard(pawn);
+      ChessPiece rook = new ChessPieceRook(true, [3, 3]);
+      board.AddPieceToBoard(rook);
       
-      Boolean validMove = pawn.IsValidMove(1, 5, board.Board);
+      Boolean validMove = rook.IsValidMove(3, 3, board.Board);
       System.Console.WriteLine(validMove);
     }
   }

@@ -3,15 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChessApp.Model
+namespace Project.Model
 {
-    public interface ChessPiece
+    public abstract class ChessPiece
     {
-        Boolean IsWhite { get; }
-        int[] Pos { get; set; }
-        int[] PrevPos { get; set; }
-        Boolean IsValidMove(int x, int y, ChessPiece[,] board);
+        public bool IsWhite { get; }
+        public int[] Pos { get; set; }
+        public int[] PrevPos { get; set; }
 
-        void Move(int[] location);
+        protected ChessPiece(bool isWhite, int[] pos)
+        {
+            IsWhite = isWhite;
+            if (pos.Length != 2) {
+                throw new ArgumentException("Invalid position");
+            }
+            Pos = pos;
+            PrevPos = pos;
+        }
+
+        public abstract bool IsValidMove(int x, int y, ChessPiece[,] board);
+
+        public void Move(int[] position) {
+            this.PrevPos = Pos;
+            this.Pos = position;
+        }
     }
 }
