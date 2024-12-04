@@ -8,12 +8,12 @@ namespace ChessApp.Tests
         public void PawnCanMoveOneForward()
         {
             // Given
-            ChessPiece[,] board = new ChessPiece[8,8];
+            ChessBoard board = new();
             ChessPiece pawn = new ChessPiecePawn(true, [0, 1]);
-            board[0,1] = pawn;
+            board.AddPieceToBoard(pawn);
         
             // When
-            Boolean validMove = pawn.IsValidMove(0, 2, board);
+            Boolean validMove = pawn.IsValidMove(0, 2, board.Board);
         
             // Then
             Assert.True(validMove);
@@ -23,14 +23,14 @@ namespace ChessApp.Tests
         public void WhitePawnCannotMoveOneForwardWhenWhitePieceStandsOnTarget()
         {
             // Given
-            ChessPiece[,] board = new ChessPiece[8,8];
+            ChessBoard board = new();
             ChessPiece pawn1 = new ChessPiecePawn(true, [0, 1]);
             ChessPiece pawn2 = new ChessPiecePawn(true, [0, 2]);
-            board[0, 1] = pawn1;
-            board[0, 2] = pawn2;
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(pawn2);
         
             // When
-            Boolean validMove = pawn1.IsValidMove(1, 1, board);
+            Boolean validMove = pawn1.IsValidMove(1, 1, board.Board);
         
             // Then
             Assert.False(validMove);
@@ -40,12 +40,12 @@ namespace ChessApp.Tests
         public void PawnCannotMoveOneToTheSide()
         {
             // Given
-            ChessPiece[,] board = new ChessPiece[8,8];
+            ChessBoard board = new();
             ChessPiece pawn = new ChessPiecePawn(true, [0, 1]);
-            board[0,1] = pawn;
+            board.AddPieceToBoard(pawn);
         
             // When
-            Boolean validMove = pawn.IsValidMove(1, 1, board);
+            Boolean validMove = pawn.IsValidMove(1, 1, board.Board);
         
             // Then
             Assert.False(validMove);

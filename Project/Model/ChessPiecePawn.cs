@@ -11,7 +11,7 @@ namespace ChessApp.Model
         public int[] Pos { get; set; }
         public int[] PrevPos { get; set; }
 
-        
+
         public ChessPiecePawn(Boolean isWhite, int[] pos)
         {
             this.IsWhite = isWhite;
@@ -31,17 +31,20 @@ namespace ChessApp.Model
             }
 
             // Can capture a piece if it is one square diagonally forward
-            if (targetPiece != null && this.IsOneForward(x) && Math.Abs(this.Pos[1] - y) == 1) {
+            if (targetPiece != null && this.IsOneForward(y) && Math.Abs(this.Pos[1] - y) == 1) {
                 return true;
             }
 
             // Can move one square forward if it doesn't capture
-            if (targetPiece == null && this.IsOneForward(x) && this.Pos[1] == y) {
+            System.Console.WriteLine(targetPiece == null);
+            System.Console.WriteLine(this.IsOneForward(y));
+            System.Console.WriteLine(Math.Abs(this.Pos[1] - y) == 1);
+            if (targetPiece == null && this.IsOneForward(y) && Math.Abs(this.Pos[1] - y) == 1) {
                 return true;
             }
 
             // Can move two squares forward if it doesn't capture anything, is the first move and there is no piece in between the positions
-            if (this.IsForward(x)
+            if (this.IsForward(y)
                 && Math.Abs(this.Pos[0] - x) == 2
                 && targetPiece == null
                 && this.Pos.Equals(this.PrevPos)) {
@@ -57,7 +60,7 @@ namespace ChessApp.Model
 
             // En passant: Can capture a piece behind the landing spot if it is a pawn that just moved two squares forward and this pawn moved diagonally to get there
             if (targetPiece == null
-                && this.IsOneForward(x)
+                && this.IsOneForward(y)
                 && Math.Abs(this.Pos[1] - y) == 1) {
                 int targetY = this.Pos[1] > y ? this.Pos[1] - 1 : this.Pos[1] + 1;
                 targetPiece = board[this.Pos[0], targetY];
@@ -79,8 +82,8 @@ namespace ChessApp.Model
             return this.IsWhite ? targetX > this.Pos[0] : targetX < this.Pos[0];
         }
 
-        private Boolean IsOneForward(int targetX) {
-            return IsForward(targetX) && Math.Abs(targetX - this.Pos[0]) == 1;
+        private Boolean IsOneForward(int targetY) {
+            return IsForward(targetY) && Math.Abs(targetY - this.Pos[1]) == 1;
         }
     }
 }
