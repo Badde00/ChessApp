@@ -21,7 +21,7 @@ namespace Project.Model
             PrevPos = pos;
         }
 
-        public abstract bool IsValidMove(int x, int y, ChessPiece[,] board);
+        public abstract bool IsValidMove(int x, int y, ChessPiece?[,] board);
 
         public void Move(int[] position) {
             this.PrevPos = Pos;

@@ -7,7 +7,7 @@ namespace Project.Model
 {
     public class ChessPieceBishop(bool isWhite, int[] pos) : ChessPiece(isWhite, pos)
     {
-        public override bool IsValidMove(int x, int y, ChessPiece[,] board) {
+        public override bool IsValidMove(int x, int y, ChessPiece?[,] board) {
             // Checks that movement is diagonal and non-zero
             if (Math.Abs(this.Pos[0] - x) == Math.Abs(this.Pos[1] - y) && this.Pos[0] != x) {
                 int movementX = x > this.Pos[0] ? 1 : -1;
@@ -24,12 +24,10 @@ namespace Project.Model
                 }
 
                 // Check that if there's a piece on the target square, it has to be a different color.
-                ChessPiece targetPiece = board[x, y];
+                ChessPiece? targetPiece = board[x, y];
                 if (targetPiece != null) {
                     if (targetPiece.IsWhite != this.IsWhite) {
                         return true;
-                    } else {
-                        return false;
                     }
                 } else {
                     return true;

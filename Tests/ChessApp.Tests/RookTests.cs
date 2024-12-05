@@ -55,8 +55,6 @@ namespace ChessApp.Tests
             Assert.True(validMove);
         }
 
-        
-
         [Theory]
         [InlineData(0, 0)]
         [InlineData(1, 0)]
@@ -187,6 +185,66 @@ namespace ChessApp.Tests
             ChessBoard board = new();
             ChessPiece rook = new ChessPieceRook(false, [3, 3]);
             board.AddPieceToBoard(rook);
+        
+            // When
+            bool validMove = rook.IsValidMove(targetX, targetY, board.Board);
+        
+            // Then
+            Assert.False(validMove);
+        }
+
+        [Theory]
+        [InlineData(4, 3)]
+        [InlineData(2, 3)]
+        [InlineData(3, 2)]
+        [InlineData(3, 4)]
+        public void WhiteRookCanCaptureBlackPiece(int targetX, int targetY) {
+            // Given
+            ChessBoard board = new();
+            ChessPiece rook = new ChessPieceRook(true, [3, 3]);
+            ChessPiece pawn = new ChessPiecePawn(false, [targetX, targetY]);
+            board.AddPieceToBoard(rook);
+            board.AddPieceToBoard(pawn);
+        
+            // When
+            bool validMove = rook.IsValidMove(targetX, targetY, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        [Theory]
+        [InlineData(4, 3)]
+        [InlineData(2, 3)]
+        [InlineData(3, 2)]
+        [InlineData(3, 4)]
+        public void BlackRookCanCaptureWhitePiece(int targetX, int targetY) {
+            // Given
+            ChessBoard board = new();
+            ChessPiece rook = new ChessPieceRook(false, [3, 3]);
+            ChessPiece pawn = new ChessPiecePawn(true, [targetX, targetY]);
+            board.AddPieceToBoard(rook);
+            board.AddPieceToBoard(pawn);
+        
+            // When
+            bool validMove = rook.IsValidMove(targetX, targetY, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        [Theory]
+        [InlineData(4, 3)]
+        [InlineData(2, 3)]
+        [InlineData(3, 2)]
+        [InlineData(3, 4)]
+        public void WhiteRookCannotCaptureWhitePiece(int targetX, int targetY) {
+            // Given
+            ChessBoard board = new();
+            ChessPiece rook = new ChessPieceRook(true, [3, 3]);
+            ChessPiece pawn = new ChessPiecePawn(true, [targetX, targetY]);
+            board.AddPieceToBoard(rook);
+            board.AddPieceToBoard(pawn);
         
             // When
             bool validMove = rook.IsValidMove(targetX, targetY, board.Board);

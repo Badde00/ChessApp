@@ -459,6 +459,21 @@ namespace ChessApp.Tests
             Assert.False(validMove);
         }
 
-        //TODO: Make En Passant test with non-pawn piece
+        [Fact]
+        public void PawnCannotEnPassantRookThatMovedTwo() {
+            // Given
+            ChessBoard board = new();
+            ChessPiece pawn1 = new ChessPiecePawn(true, [1, 4]);
+            ChessPiece rook = new ChessPieceRook(false, [2, 6]);
+            rook.Move([2, 4]);
+            board.AddPieceToBoard(pawn1);
+            board.AddPieceToBoard(rook);
+        
+            // When
+            Boolean validMove = pawn1.IsValidMove(2, 5, board.Board);
+        
+            // Then
+            Assert.False(validMove);
+        }
     }
 }

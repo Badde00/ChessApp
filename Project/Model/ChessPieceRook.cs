@@ -4,7 +4,7 @@ namespace Project.Model
     public class ChessPieceRook(bool isWhite, int[] pos) : ChessPiece(isWhite, pos)
     {
 
-        public override bool IsValidMove(int x, int y, ChessPiece[,] board) {
+        public override bool IsValidMove(int x, int y, ChessPiece?[,] board) {
             // Checks if rook is moving in only one direction (using XOR)
             if (Math.Abs(this.Pos[0] - x) != 0 ^ Math.Abs(this.Pos[1] - y) != 0) {
                 bool movingX = this.Pos[1] == y; // True if moving along X-axis, false if along Y-axis.
@@ -24,7 +24,7 @@ namespace Project.Model
                 }
 
                 // Can't capture piece of matching color
-                ChessPiece targetPiece = board[x, y];
+                ChessPiece? targetPiece = board[x, y];
                 if (targetPiece != null) {
                     if (targetPiece.IsWhite == this.IsWhite) {
                         return false;
