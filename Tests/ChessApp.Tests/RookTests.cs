@@ -131,5 +131,68 @@ namespace ChessApp.Tests
                 Assert.False(validMove);
             }
         }
+
+        [Theory]
+        [InlineData(0, 1)]
+        [InlineData(0, 2)]
+        [InlineData(0, 3)]
+        [InlineData(0, 4)]
+        [InlineData(0, 5)]
+        [InlineData(0, 6)]
+        [InlineData(0, 7)]
+        public void RookCanMoveVertically(int targetX, int targetY) {
+            // Given
+            ChessBoard board = new();
+            ChessPiece rook = new ChessPieceRook(true, [0, 0]);
+            board.AddPieceToBoard(rook);
+        
+            // When
+            bool validMove = rook.IsValidMove(targetX, targetY, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(0, 1)]
+        [InlineData(0, 2)]
+        [InlineData(0, 3)]
+        [InlineData(0, 4)]
+        [InlineData(0, 5)]
+        [InlineData(0, 6)]
+        public void RookCanMoveVertically_Inverse(int targetX, int targetY) {
+            // Given
+            ChessBoard board = new();
+            ChessPiece rook = new ChessPieceRook(true, [0, 7]);
+            board.AddPieceToBoard(rook);
+        
+            // When
+            bool validMove = rook.IsValidMove(targetX, targetY, board.Board);
+        
+            // Then
+            Assert.True(validMove);
+        }
+
+        [Theory]
+        [InlineData(4, 4)]
+        [InlineData(0, 0)]
+        [InlineData(1, 2)]
+        [InlineData(2, 1)]
+        [InlineData(0, 5)]
+        [InlineData(7, 4)]
+        [InlineData(2, 7)]
+        public void RookCannotMoveToVariousPositions(int targetX, int targetY) {
+            // Given
+            ChessBoard board = new();
+            ChessPiece rook = new ChessPieceRook(false, [3, 3]);
+            board.AddPieceToBoard(rook);
+        
+            // When
+            bool validMove = rook.IsValidMove(targetX, targetY, board.Board);
+        
+            // Then
+            Assert.False(validMove);
+        }
     }
 }
