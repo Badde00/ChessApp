@@ -1,5 +1,4 @@
-﻿using System;
-using Project.Model;
+﻿using Project.Model;
 
 namespace Project
 {
@@ -10,11 +9,13 @@ namespace Project
       Console.WriteLine("Welcome to ChessApp!");
 
       ChessBoard board = new();
-      ChessPiece rook = new ChessPieceRook(true, [3, 3]);
+      ChessPiece rook = new ChessPieceRook(true, [0, 0]);
+      ChessPiece pawn = new ChessPiecePawn(true, [0, 5]);
       board.AddPieceToBoard(rook);
+      board.AddPieceToBoard(pawn);
       
-      Boolean validMove = rook.IsValidMove(3, 3, board.Board);
-      System.Console.WriteLine(validMove);
+      Boolean validMove = rook.IsValidMove(0, 6, board.Board);
+      Console.WriteLine(validMove);
     }
   }
 }
