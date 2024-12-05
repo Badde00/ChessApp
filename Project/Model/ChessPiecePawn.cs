@@ -7,9 +7,9 @@ namespace Project.Model
 {
     public class ChessPiecePawn(bool isWhite, int[] pos) : ChessPiece(isWhite, pos)
     {
-        public override bool IsValidMove(int x, int y, ChessPiece[,] board)
+        public override bool IsValidMove(int x, int y, ChessPiece?[,] board)
         {
-            ChessPiece targetPiece = board[x, y];
+            ChessPiece? targetPiece = board[x, y];
             // Cannot land on a square with a piece of your color
             if (targetPiece != null && targetPiece.IsWhite == this.IsWhite) {
                 return false;
