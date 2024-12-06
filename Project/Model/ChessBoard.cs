@@ -1,6 +1,6 @@
 
 namespace Project.Model
-{
+{ // TODO: Finish Chessboard, write tests for king, make controller and view
     public class ChessBoard
     {
         public ChessPiece?[,] Board { get; }

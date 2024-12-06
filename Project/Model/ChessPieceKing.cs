@@ -16,15 +16,17 @@ namespace Project.Model
                     return false; // If you can't, you can't move there
                 }
             }
+            if (IsTargetSquareThreatened(x, y, board)) {
+                return false;
+            }
 
             // Check if it moves only one squre
             if (Math.Abs(this.Pos[0] - x) <= 1 && Math.Abs(this.Pos[1] - y) <= 1 && Math.Abs(this.Pos[0] - x) + Math.Abs(this.Pos[1] - y) > 0) {
-                if (IsTargetSquareThreatened(x, y, board)) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             } else if (this.Pos.Equals(this.PrevPos) && (x == 6 || x == 2) && this.Pos[1] == y) { // Trying to castle
+                if (IsTargetSquareThreatened(this.Pos[0], this.Pos[1], board)) { // Cannot castle if threatened
+                    return false;
+                }
                 ChessPiece? possibleRook = board[x == 6 ? 7 : 0, this.IsWhite ? 0 : 7];
                 if (possibleRook != null) {
                     if (possibleRook is ChessPieceRook && possibleRook.Pos.Equals(possibleRook.PrevPos)) {

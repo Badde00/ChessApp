@@ -9,12 +9,12 @@ namespace Project
       Console.WriteLine("Welcome to ChessApp!");
 
       ChessBoard board = new();
+      ChessPiece king = new ChessPieceKing(true, [4, 0]);
       ChessPiece rook = new ChessPieceRook(true, [0, 0]);
-      ChessPiece pawn = new ChessPiecePawn(true, [0, 5]);
+      board.AddPieceToBoard(king);
       board.AddPieceToBoard(rook);
-      board.AddPieceToBoard(pawn);
       
-      Boolean validMove = rook.IsValidMove(0, 6, board.Board);
+      bool validMove = king.IsValidMove(2, 0, board.Board);
       Console.WriteLine(validMove);
     }
   }
