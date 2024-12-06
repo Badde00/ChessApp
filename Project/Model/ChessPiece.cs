@@ -27,5 +27,17 @@ namespace Project.Model
             this.PrevPos = Pos;
             this.Pos = position;
         }
+
+        public string ToStringChar() {
+            return this switch {
+                ChessPiecePawn => IsWhite ? "♙" : "♟",
+                ChessPieceRook => IsWhite ? "♖" : "♜",
+                ChessPieceKnight => IsWhite ? "♘" : "♞",
+                ChessPieceBishop => IsWhite ? "♗" : "♝",
+                ChessPieceQueen => IsWhite ? "♕" : "♛",
+                ChessPieceKing => IsWhite ? "♔" : "♚",
+                _ => " " // Empty square
+            };
+        }
     }
 }

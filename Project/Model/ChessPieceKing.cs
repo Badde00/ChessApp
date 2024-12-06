@@ -30,7 +30,6 @@ namespace Project.Model
                 ChessPiece? possibleRook = board[x == 6 ? 7 : 0, this.IsWhite ? 0 : 7];
                 if (possibleRook != null) {
                     if (possibleRook is ChessPieceRook && possibleRook.Pos.Equals(possibleRook.PrevPos)) {
-                        // TODO: Check if pieces that king moves through are empty and not threatened
                         ChessPiece? middlePiece = board[x == 6 ? 5 : 3, this.IsWhite ? 0 : 7];
                         if (middlePiece != null) { // Can't castle with pieces in between
                             return false;
